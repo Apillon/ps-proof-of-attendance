@@ -25,7 +25,6 @@
     </div>
     <div v-if="currStep == 2" class="flex flex-col" style="width: 600px">
       <n-form ref="formRef" :model="formData" :rules="rules" @submit.prevent="handleSubmit">
-        <!--  Project Quota value -->
         <n-form-item path="title" label="Title" :label-props="{ for: 'title' }">
           <n-input v-model:value="formData.title" clearable />
         </n-form-item>
@@ -41,6 +40,22 @@
         <n-form-item path="website" label="Website" :label-props="{ for: 'website' }">
           <n-input v-model:value="formData.website" clearable />
         </n-form-item>
+        <n-form-item
+          label="Is this a Lottery event? You can select up to 3 prizes for the winners."
+        >
+          <n-switch v-model:value="formData.isLottery" />
+        </n-form-item>
+        <div v-if="formData.isLottery">
+          <n-form-item path="lotteryPrize1" label="Lottery Prize 1">
+            <n-input v-model:value="formData.lotteryPrize1" clearable />
+          </n-form-item>
+          <n-form-item path="lotteryPrize2" label="Lottery Prize 2">
+            <n-input v-model:value="formData.lotteryPrize2" clearable />
+          </n-form-item>
+          <n-form-item path="lotteryPrize3" label="Lottery Prize 3">
+            <n-input v-model:value="formData.lotteryPrize3" clearable />
+          </n-form-item>
+        </div>
       </n-form>
       <Btn size="small" type="primary" class="mt-12" @click="validateFormAndProceed()">Next</Btn>
     </div>
@@ -68,6 +83,20 @@
           <span class="font-bold">Event end date: </span
           ><span>{{ dateToDateTime(new Date(formData.endTime)) }}</span>
         </div>
+        <div v-if="formData.isLottery">
+          <div>
+            <span class="font-bold">Lottery Prize 1: </span
+            ><span>{{ formData.lotteryPrize1 }}</span>
+          </div>
+          <div>
+            <span class="font-bold">Lottery Prize 2: </span
+            ><span>{{ formData.lotteryPrize2 }}</span>
+          </div>
+          <div>
+            <span class="font-bold">Lottery Prize 3: </span
+            ><span>{{ formData.lotteryPrize3 }}</span>
+          </div>
+        </div>
       </div>
       <Btn size="small" type="primary" class="mt-12" :loading="loading" @click="createPoapDrop()"
         >Create</Btn
@@ -79,12 +108,12 @@
       <div class="my-8 text-center">
         <h3 class="mb-6">Great Success!</h3>
         <p>
-          POAP event was successfuly deployed. <br />
+          POAP event was successfully deployed. <br />
           Open the management for the POAP here:
         </p>
       </div>
 
-      <Btn size="large" @click="manageCreatedPoap()"> Manage POAP </Btn>
+      <Btn size="large" @click="manageCreatedPoap()">Manage POAP</Btn>
     </div>
   </div>
 </template>
@@ -141,7 +170,6 @@ async function createPoapDrop() {
       endTime: new Date(formData.endTime),
     });
     loading.value = false;
-    // router.push('');
     currStep.value = 4;
     title = 'POAP drop ready';
     createdPoapDrop = res.data;

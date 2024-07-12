@@ -1,8 +1,6 @@
 <template>
   <div v-if="poapStore.poap" class="grid justify-items-center">
-    <h1>
-      {{ poapStore.poap.title }}
-    </h1>
+    <h1>{{ poapStore.poap.title }}</h1>
     <div v-if="poapStatus == 0" class="flex flex-col items-center mt-4">
       <span>Time to event</span>
       <Timer :date-time-to="poapStore.poap?.startTime"></Timer>
@@ -65,7 +63,7 @@
           <span class="font-bold" style="font-size: xx-large">{{
             poapStore.reservations.total
           }}</span>
-          <p style="font-size: x-small">Total participants</p>
+          <p style="font-size: x-small">Total Participants</p>
         </div>
         <div
           class="flex flex-col items-center p-2 rounded-md"
@@ -78,13 +76,14 @@
           <p style="font-size: x-small">Minted NFTs</p>
         </div>
       </div>
-      <!--Event concluded -->
+      <!-- Event concluded -->
       <n-data-table
         :columns="columns"
         :data="poapStore.reservations.items"
         :pagination="pagination"
         :bordered="false"
       />
+      <Btn type="primary" @click="navigateToLotteryWinners()">View Lottery Winners</Btn>
     </div>
   </div>
 </template>
@@ -166,7 +165,9 @@ function calculatePoapStatus() {
   const currDate = dayjs(new Date());
   const startTime = dayjs(poapStore.poap?.startTime);
   const endTime = dayjs(poapStore.poap?.endTime);
-
+  console.log('Current Date:', currDate);
+  console.log('Start Time:', startTime);
+  console.log('End Time:', endTime);
   if (currDate >= startTime) {
     if (currDate <= endTime) {
       // Event is running
@@ -179,10 +180,15 @@ function calculatePoapStatus() {
   } else {
     poapStatus.value = 0;
   }
+  console.log('Poap Status:', poapStatus.value);
 }
 
 async function navigateToReserveDrop() {
   const response = await $api.get(`/poap-drops/${poapId.value}/drop-reservation-token`);
   router.push(`/poaps/${poapId.value}/reserve-mint?token=${(response as any).data.token}`);
+}
+
+function navigateToLotteryWinners() {
+  router.push(`/poaps/${poapId.value}/lottery-winners`);
 }
 </script>
