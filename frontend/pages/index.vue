@@ -13,8 +13,8 @@
             @update:page="handlePageChange"
           />
         </div>
-        <span v-if="poapStore.poaps.items.length == 0">You dont have any POAP drops yet.</span>
-        <Btn type="primary" class="mt-8" @click="router.push('create-poap')">Create new poap</Btn>
+        <span v-if="poapStore.poaps.items.length == 0">You don't have any POAP drops yet.</span>
+        <Btn type="primary" class="mt-8" @click="router.push('create-poap')">Create new POAP</Btn>
       </div>
     </div>
   </div>
@@ -111,7 +111,6 @@ const columns: DataTableColumns<any> = [
 function rowProps(row: any) {
   return {
     onClick: (e: Event) => {
-      console.info('row', row);
       if (canOpenColumnCell(e.composedPath())) {
         navigateToPoapDrop(row);
       }
@@ -139,10 +138,23 @@ const dropdownOptions = (poapDrop: any) => {
         },
       },
     },
+    {
+      label: 'Lottery Winners',
+      key: 'winners',
+      props: {
+        onClick: () => {
+          navigateToLotteryWinners(poapDrop);
+        },
+      },
+    },
   ];
 };
 
 function navigateToPoapDrop(poapDrop: any) {
   router.push(`/poaps/${poapDrop.id}`);
+}
+
+function navigateToLotteryWinners(poapDrop: any) {
+  router.push(`/poaps/${poapDrop.id}/lottery-winners`);
 }
 </script>
