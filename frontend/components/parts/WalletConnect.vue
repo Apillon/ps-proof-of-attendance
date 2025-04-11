@@ -15,9 +15,9 @@
   </Btn>
 
   <EmbeddedWallet
-    :clientId="config.public.EMBEDDED_WALLET_CLIENT"
-    passkeyAuthMode="tab_form"
-    :defaultNetworkId="network.id"
+    :client-id="config.public.EMBEDDED_WALLET_CLIENT"
+    passkey-auth-mode="tab_form"
+    :default-network-id="network.id"
     :networks="[
       {
         name: network.name,
@@ -42,11 +42,11 @@
 </template>
 
 <script lang="ts" setup>
+import type { Size } from 'naive-ui/es/button/src/interface';
+import { type Events } from '@apillon/wallet-sdk';
 import { useAccountEffect } from '@wagmi/vue';
 import { EmbeddedWallet, useWallet } from '@apillon/wallet-vue';
-import { type Events } from '@apillon/wallet-sdk';
 import { colors } from '~/tailwind.config';
-import type { Size } from 'naive-ui/es/button/src/interface';
 
 const props = defineProps({
   admin: { type: Boolean, default: false },

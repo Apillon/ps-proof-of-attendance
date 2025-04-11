@@ -65,7 +65,7 @@ export default function usePoapDrop() {
     loading.value = true;
     currStep.value = PoapDropStep.DEPLOYING;
     try {
-      const res = await $api.put<PoapResponse>(`/poap-drops`, {
+      await $api.put<PoapResponse>(`/poap-drops`, {
         ...formData,
         startTime: new Date(formData.startTime),
         endTime: new Date(formData.endTime),

@@ -1,10 +1,10 @@
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import mkcert from 'vite-plugin-mkcert';
+import { moonbaseAlpha } from 'viem/chains';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { Environments } from './lib/values/general.values';
-import { moonbaseAlpha } from 'viem/chains';
 
 const env = process.env.ENV ? process.env.ENV : process.env.NODE_ENV;
 
@@ -16,11 +16,12 @@ const meta = {
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
+
   devServer: {
-    // https: true,
     https: {
-      key: 'C:\\Users\\Urban\\.vite-plugin-mkcert\\dev.pem',
-      cert: 'C:\\Users\\Urban\\.vite-plugin-mkcert\\cert.pem',
+      key: process.env.USERPROFILE + '\\.vite-plugin-mkcert\\cert.key',
+      cert: process.env.USERPROFILE + '\\.vite-plugin-mkcert\\cert.crt',
     },
   },
   runtimeConfig: {
@@ -49,10 +50,6 @@ export default defineNuxtConfig({
   ],
 
   vite: {
-    server: {
-      allowedHosts: ['68ad-213-229-247-224.ngrok-free.app'],
-    },
-
     plugins: [
       AutoImport({
         imports: [
@@ -91,8 +88,6 @@ export default defineNuxtConfig({
         ? ['naive-ui', 'vueuc', '@css-render/vue3-ssr', '@juggle/resize-observer']
         : ['@juggle/resize-observer'],
   },
-
-  ssr: false,
 
   app: {
     head: {

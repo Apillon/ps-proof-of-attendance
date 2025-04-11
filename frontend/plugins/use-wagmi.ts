@@ -6,7 +6,6 @@ import { metaMask, coinbaseWallet, walletConnect } from '@wagmi/vue/connectors';
 
 export default defineNuxtPlugin(nuxtApp => {
   const config = useRuntimeConfig();
-  console.log(config.public);
   const chains: readonly [Chain, ...Chain[]] = [moonbeam, moonbaseAlpha];
 
   const transports = chains.reduce((acc, chain) => {

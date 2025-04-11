@@ -67,6 +67,7 @@ export const ErrorCodes = {
   400008: 'Poap drop does not exists',
   400009: 'Drop already reserved',
   400010: 'Drop reservation does not exists',
+  400011: 'Please login with admin wallet',
   403005: 'Time to claim the airdrop has expired',
 
   // SystemErrorCode

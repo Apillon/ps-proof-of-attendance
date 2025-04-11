@@ -1,5 +1,5 @@
-import { MessageRenderMessage, NAlert } from 'naive-ui';
-import { RenderMessageProps } from 'naive-ui/es/message/src/types';
+import { type MessageRenderMessage, NAlert } from 'naive-ui';
+import type { RenderMessageProps } from 'naive-ui/es/message/src/types';
 import { apiError } from '~/lib/misc/errors';
 
 export default function useErrors() {
@@ -22,7 +22,7 @@ export default function useErrors() {
       },
       {
         default: () => props.content,
-      },
+      }
     );
   };
 

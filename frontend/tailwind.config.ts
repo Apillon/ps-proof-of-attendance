@@ -50,7 +50,7 @@ export default {
       hd: '1920px',
     },
 
-    colors: colors,
+    colors,
 
     fontFamily: {
       inter: ['Inter', 'ui-sans-serif', 'system-ui'],

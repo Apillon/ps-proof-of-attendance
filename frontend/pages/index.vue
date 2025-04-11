@@ -17,8 +17,8 @@
           audience for their attendance.
         </p>
       </div>
-      <div class="grid lg:grid-cols-3 gap-x-12 gap-y-6 text-center mb-12">
-        <div v-for="(content, key) in poapDrops" class="card-dark flex flex-col gap-12 items-center">
+      <div class="grid md:grid-cols-3 gap-x-4 md:gap-x-8 lg:gap-x-12 gap-y-6 text-center mb-12">
+        <div v-for="(content, key) in poapDrops" :key="key" class="card-dark flex flex-col gap-12 items-center">
           <NuxtIcon :name="`poap-drops-${key + 1}`" class="icon-auto" filled />
           <p>{{ content }}</p>
         </div>
@@ -43,7 +43,7 @@ const { info } = useAccountEW();
 const { isConnected } = useAccount();
 
 const modalPoapVisible = ref(false);
-const isLoggedIn = computed(() => (isConnected.value || !!info.activeWallet?.address) && userStore.jwt);
+const isLoggedIn = computed(() => (isConnected.value || !!info.activeWallet?.address) && userStore.loggedIn);
 
 const poapDrops = [
   'Create digital keepsakes to commemorate special events',
@@ -58,6 +58,7 @@ useHead({
 
 onMounted(async () => {
   if (isLoggedIn.value) {
+    console.log(isLoggedIn.value, 'mounted');
     await poapStore.getPoapDrops();
   }
 });
@@ -66,6 +67,7 @@ watch(
   () => isLoggedIn.value,
   async _ => {
     if (isLoggedIn.value) {
+      console.log(isLoggedIn.value);
       await poapStore.getPoapDrops();
     }
   }
