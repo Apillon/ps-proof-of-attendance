@@ -10,6 +10,13 @@ Apillon prebuilt solutions are plug and play applications which can be deployed 
 
 This ready-made solution is designed to help you give out digital collectibles (called NFTs) to attendances on an event.
 
+** Before getting started, ensure you have: **
+
+- Apillon API key and secret for connection.
+- Created NFT collection using Apillon.
+- Access to an email server's details.
+- A specialized Ethereum wallet for admin panel access.
+
 ## Getting started
 
 Solution consists of 2 main parts, Node.js backend APIs and Vue 3 frontend.
